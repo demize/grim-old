@@ -1,0 +1,15 @@
+#mesondefine HAVE_CONFIG_H
+#mesondefine HAVE_NCURSESW_CURSES_H
+#mesondefine HAVE_NCURSESW_H
+#mesondefine HAVE_NCURSESW_PANEL_H
+#mesondefine HAVE_NCURSES_PANEL_H
+#mesondefine HAVE_PANEL_H
+#mesondefine HAVE_NCURSESW_MENU_H
+#mesondefine HAVE_NCURSES_MENU_H
+#mesondefine HAVE_MENU_H
+#mesondefine HAVE_NCURSESW_FORM_H
+#mesondefine HAVE_NCURSES_FORM_H
+#mesondefine HAVE_FORM_H
+#define PACKAGE_VERSION "@PACKAGE_VERSION@"
+
+#include "system.h"
