@@ -1,3 +1,5 @@
+#define HAVE_THREADS_C11 1
+#define HAVE_THREADS_PTHREADS 2
 #mesondefine HAVE_CONFIG_H
 #mesondefine HAVE_NCURSESW_CURSES_H
 #mesondefine HAVE_NCURSESW_H
@@ -10,6 +12,7 @@
 #mesondefine HAVE_NCURSESW_FORM_H
 #mesondefine HAVE_NCURSES_FORM_H
 #mesondefine HAVE_FORM_H
+#mesondefine HAVE_THREADS
 #define PACKAGE_VERSION "@PACKAGE_VERSION@"
 
 #include "system.h"

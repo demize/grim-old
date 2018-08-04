@@ -1,5 +1,11 @@
-#ifndef EWFIMAGER_SYSTEM_H
-#define EWFIMAGER_SYSTEM_H
+#ifndef GRIM_SYSTEM_H
+#define GRIM_SYSTEM_H
+
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#else
+# error config.h not found, please run configure
+#endif
 
 #if defined HAVE_NCURSESW_CURSES_H
 # include <ncursesw/curses.h>

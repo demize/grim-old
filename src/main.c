@@ -1,12 +1,12 @@
+#include <stdlib.h>
+#include <signal.h>
+#include <string.h>
+
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #else
 # error config.h not found, please run configure
 #endif
-
-#include <stdlib.h>
-#include <signal.h>
-#include <string.h>
 
 #include "cursesutils.h"
 

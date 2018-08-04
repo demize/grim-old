@@ -1,7 +1,8 @@
 project('ewfimager',
     'c',
     version: '0.1',
-    license: 'MIT'
+    license: 'MIT',
+    default_options: ['c_std=c11']
 )
 
 cc = meson.get_compiler('c')
@@ -55,10 +56,17 @@ else
     error('ncursesw found, but form.h not found')
 endif
 
-ewfdep = dependency(
-    'libewf',
-    version: '>=20140608'
-)
+threads_dep = declare_dependency()
+if cc.check_header('threads.h')
+    config.set('HAVE_THREADS', 'HAVE_THREADS_C11')
+else
+    threads_dep = dependency('threads')
+    if not threads_dep.found()
+        error('No thread support found; must have pthreads or C11 threads')
+    else
+        config.set('HAVE_THREADS', 'HAVE_THREADS_PTHREADS')
+    endif
+endif
 
 configure_file(
     input: 'config.h.in',
@@ -72,5 +80,5 @@ add_global_arguments('-DHAVE_CONFIG_H',
 executable('ewfimager',
     'main.c',
     'cursesutils.c',
-    dependencies: [cursesdep, ewfdep]
+    dependencies: [cursesdep, threads_dep]
 )

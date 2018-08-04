@@ -1,4 +1,8 @@
-#include "config.h"
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#else
+# error config.h not found, please run configure
+#endif
 #include "cursesutils.h"
 
 WINDOW *create_window(int height, int width, int starty, int startx)

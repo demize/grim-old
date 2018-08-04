@@ -1,0 +1,24 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"SublimeLinter.linters.clang.x": "c",
+        "SublimeLinter.linters.clang.I": [
+            "${project_path}/build", 
+            "${project_path}/src"
+        ], 
+        "SublimeLinter.linters.clang.args": [
+            "-DHAVE_CONFIG_H", 
+            "-Wall", 
+            "-pedantic", 
+            "-Wextra", 
+            "-fsyntax-only", 
+            "-fno-caret-diagnostics",
+            "-std=c11"
+        ]
+    }
+}
