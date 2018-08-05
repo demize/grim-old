@@ -7,6 +7,8 @@
 # error config.h not found, please run configure
 #endif
 
+#include <stdatomic.h>
+
 #if HAVE_THREADS==HAVE_THREADS_C11
 # include <threads.h>
 typedef thrd_start_t grim_start_t;
@@ -51,5 +53,14 @@ grim_thread_t grim_thread_current(void);
 pthread_exit / thrd_exit
  */
 void grim_thread_exit(int *result);
+
+typedef struct
+{
+	atomic_uint_fast64_t *bytes_read; // the number of bytes read so far...
+	atomic_uint_fast64_t *bytes_total; // ...out of this many bytes
+	char *input_file; // the file to read from (device or regular)
+	size_t input_file_l; // 
+	int pipefd_w;
+} grim_thread_args;
 
 #endif
