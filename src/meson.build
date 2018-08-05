@@ -80,5 +80,6 @@ add_global_arguments('-DHAVE_CONFIG_H',
 executable('ewfimager',
     'main.c',
     'cursesutils.c',
+    'threadutils.c',
     dependencies: [cursesdep, threads_dep]
 )
