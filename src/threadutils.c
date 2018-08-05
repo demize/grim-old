@@ -34,7 +34,7 @@ int grim_thread_join(grim_thread_t thread, int *result)
 	#if HAVE_THREADS==HAVE_THREADS_C11
 	return thrd_join(thread, result);
 	#elif HAVE_THREADS==HAVE_THREADS_PTHREADS
-	return pthread_join(thread, result);
+	return pthread_join(thread, (void **) &result);
 	#endif
 }
 

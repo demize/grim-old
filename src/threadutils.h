@@ -16,7 +16,7 @@ typedef cnd_t grim_cnd_t;
 #elif HAVE_THREADS==HAVE_THREADS_PTHREADS
 # include <pthread.h>
 typedef pthread_t grim_thread_t;
-typedef void (*grim_start_t)(void *);
+typedef void *(*grim_start_t)(void *);
 typedef pthread_mutex_t grim_mtx_t;
 typedef pthread_cond_t grim_cnd_t;
 #else
