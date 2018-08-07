@@ -7,6 +7,8 @@
 # include <ncursesw/curses.h>
 #elif defined HAVE_NCURSESW_H
 # include <ncursesw.h>
+#elif defined HAVE_CURSES_H
+# include <curses.h>
 #else
 # error "ncursesw required"
 #endif
@@ -39,6 +41,14 @@
 # include <form.h>
 #else
 # error "SysV-compatible Curses Form header file required"
+#endif
+
+#if defined HAVE_CDK_H
+# include <cdk.h>
+#elif defined HAVE_CDK_CDK_H
+# include <cdk/cdk.h>
+#else
+# error "libcdk required"
 #endif
 
 #endif

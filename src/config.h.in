@@ -3,6 +3,7 @@
 #mesondefine HAVE_CONFIG_H
 #mesondefine HAVE_NCURSESW_CURSES_H
 #mesondefine HAVE_NCURSESW_H
+#mesondefine HAVE_CURSES_H
 #mesondefine HAVE_NCURSESW_PANEL_H
 #mesondefine HAVE_NCURSES_PANEL_H
 #mesondefine HAVE_PANEL_H
@@ -13,6 +14,8 @@
 #mesondefine HAVE_NCURSES_FORM_H
 #mesondefine HAVE_FORM_H
 #mesondefine HAVE_THREADS
+#mesondefine HAVE_CDK_H
+#mesondefine HAVE_CDK_CDK_H
 #define PACKAGE_VERSION "@PACKAGE_VERSION@"
 
 #include "system.h"

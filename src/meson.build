@@ -1,4 +1,4 @@
-project('ewfimager',
+project('grim',
     'c',
     version: '0.1',
     license: 'MIT',
@@ -11,20 +11,24 @@ config.set('PACKAGE_VERSION', meson.project_version())
 
 cursesdep = dependency(
     'ncursesw',
-    version: '>=6.1.20180127'
+    version: '>=6.1.20180127',
+    required: true
 )
-
-if not cursesdep.found()
-    error('ncursesw not found')
-endif
 
 if cc.has_header('ncursesw/curses.h', dependencies: cursesdep)
     config.set('HAVE_NCURSESW_CURSES_H', true)
 elif cc.has_header('ncursesw.h', dependencies: cursesdep)
     config.set('HAVE_NCURSESW_H', true)
+elif cc.has_header('curses.h', dependencies: cursesdep)
+    config.set('HAVE_CURSES_H',)
 else
     error('ncursesw found, but no header found')
 endif
+
+paneldep = dependency(
+    'panelw',
+    required: true
+)
 
 if cc.has_header('ncursesw/panel.h', dependencies: cursesdep)
     config.set('HAVE_NCURSESW_PANEL_H', true)
@@ -36,6 +40,11 @@ else
     error('ncursesw found, but panel.h not found')
 endif
 
+menudep = dependency(
+    'menuw',
+    required: true
+)
+
 if cc.has_header('ncursesw/menu.h', dependencies: cursesdep)
     config.set('HAVE_NCURSESW_MENU_H', true)
 elif cc.has_header('ncurses/menu.h', dependencies: cursesdep)
@@ -46,6 +55,11 @@ else
     error('ncursesw found, but menu.h not found')
 endif
 
+formdep = dependency(
+    'formw',
+    required: true
+)
+
 if cc.has_header('ncursesw/form.h', dependencies: cursesdep)
     config.set('HAVE_NCURSESW_FORM_H', true)
 elif cc.has_header('ncurses/form.h', dependencies: cursesdep)
@@ -54,6 +68,22 @@ elif cc.has_header('form.h', dependencies: cursesdep)
     config.set('HAVE_FORM_H', true)
 else
     error('ncursesw found, but form.h not found')
+endif
+
+cdkdep = dependency('cdk', required: false)
+if not cdkdep.found()
+    cdkdep = cc.find_library('cdk')
+    if not cdkdep.found()
+        error('libcdk not found')
+    endif
+endif
+
+if cc.has_header('cdk.h')
+    config.set('HAVE_CDK_H', true)
+elif cc.has_header('cdk/cdk.h')
+    config.set('HAVE_CDK_CDK_H', true)
+else
+    error('libcdk found, but cdk.h not found')
 endif
 
 threads_dep = declare_dependency()
@@ -77,9 +107,9 @@ configure_file(
 add_global_arguments('-DHAVE_CONFIG_H',
     language: 'c')
 
-executable('ewfimager',
+executable('grim',
     'main.c',
     'cursesutils.c',
     'threadutils.c',
-    dependencies: [cursesdep, threads_dep]
+    dependencies: [paneldep, menudep, formdep, cursesdep, cdkdep, threads_dep]
 )
