@@ -72,9 +72,9 @@ endif
 
 cdkdep = dependency('cdk', required: false)
 if not cdkdep.found()
-    cdkdep = cc.find_library('cdk')
+    cdkdep = cc.find_library('cdk', required: false)
     if not cdkdep.found()
-        cdkdep = cc.find_library('cdkw')
+        cdkdep = cc.find_library('cdkw', required: false)
         if not cdkdep.found()
             error('libcdk not found')
         endif
@@ -93,7 +93,7 @@ threads_dep = declare_dependency()
 if cc.check_header('threads.h')
     config.set('HAVE_THREADS', 'HAVE_THREADS_C11')
 else
-    threads_dep = dependency('threads')
+    threads_dep = dependency('threads', required: false)
     if not threads_dep.found()
         error('No thread support found; must have pthreads or C11 threads')
     else
