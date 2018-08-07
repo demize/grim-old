@@ -77,6 +77,7 @@ if not cdkdep.found()
         cdkdep = cc.find_library('cdkw')
         if not cdkdep.found()
             error('libcdk not found')
+        endif
     endif
 endif
 
