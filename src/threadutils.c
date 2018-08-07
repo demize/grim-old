@@ -23,7 +23,7 @@ int grim_thread_spawn(grim_thread_t *thread, bool joinable,
 #elif HAVE_THREADS == HAVE_THREADS_PTHREADS
     int ret = pthread_create(thread, NULL, start_routine, arg);
 #endif
-    if (!joinable) {
+    if (ret == 0 && !joinable) {
         grim_thread_detach(*thread);
     }
     return ret;

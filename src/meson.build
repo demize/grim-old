@@ -117,3 +117,11 @@ executable('grim',
     'grim_menus.c',
     dependencies: [paneldep, menudep, formdep, cursesdep, cdkdep, threads_dep]
 )
+
+thread_test = executable('thread_test',
+    'thread_test.c',
+    'threadutils.c',
+    dependencies: [threads_dep]
+)
+
+test('threading test', thread_test)

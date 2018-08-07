@@ -27,12 +27,14 @@
 
 #if HAVE_THREADS == HAVE_THREADS_C11
 #    include <threads.h>
+#    define GRIM_CALLBACK thrd_start_t
 typedef thrd_start_t grim_start_t;
 typedef thrd_t grim_thread_t;
 typedef mtx_t grim_mtx_t;
 typedef cnd_t grim_cnd_t;
 #elif HAVE_THREADS == HAVE_THREADS_PTHREADS
 #    include <pthread.h>
+#    define GRIM_CALLBACK void *
 typedef pthread_t grim_thread_t;
 typedef void *(*grim_start_t)(void *);
 typedef pthread_mutex_t grim_mtx_t;
@@ -65,7 +67,7 @@ grim_thread_t grim_thread_current(void);
 /*
 pthread_exit / thrd_exit
  */
-void grim_thread_exit(int *result);
+void grim_thread_exit(int *result) __attribute__((noreturn));
 
 typedef struct
 {
