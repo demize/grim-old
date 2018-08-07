@@ -74,7 +74,9 @@ cdkdep = dependency('cdk', required: false)
 if not cdkdep.found()
     cdkdep = cc.find_library('cdk')
     if not cdkdep.found()
-        error('libcdk not found')
+        cdkdep = cc.find_library('cdkw')
+        if not cdkdep.found()
+            error('libcdk not found')
     endif
 endif
 
