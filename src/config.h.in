@@ -17,5 +17,3 @@
 #mesondefine HAVE_CDK_H
 #mesondefine HAVE_CDK_CDK_H
 #define PACKAGE_VERSION "@PACKAGE_VERSION@"
-
-#include "system.h"
