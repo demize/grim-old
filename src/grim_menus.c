@@ -109,8 +109,6 @@ int do_main_menu(WINDOW *win)
         case KEY_UP:
             menu_driver(menu, REQ_UP_ITEM);
             break;
-        default:
-            fprintf(stderr, "KEY_ENTER is %d, you pressed %d\n", KEY_ENTER, c);
         }
     }
     choice = item_index(current_item(menu));
