@@ -114,5 +114,6 @@ executable('grim',
     'main.c',
     'cursesutils.c',
     'threadutils.c',
+    'grim_menus.c',
     dependencies: [paneldep, menudep, formdep, cursesdep, cdkdep, threads_dep]
 )

@@ -72,5 +72,6 @@
 WINDOW *create_window(int height, int width, int starty, int startx);
 WINDOW *create_window_border(int height, int width, int starty, int startx);
 void destroy_window(WINDOW *win);
+void init_curses();
 
 #endif

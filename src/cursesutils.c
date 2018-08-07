@@ -37,3 +37,19 @@ void destroy_window(WINDOW *win)
     wrefresh(win);
     delwin(win);
 }
+
+void init_curses()
+{
+    initscr();
+    cbreak(); // disable input buffering
+    noecho(); // prevent characters typed from echoing unless we want them to
+    nonl();   // disable newline from enter key
+    intrflush(stdscr, FALSE);
+    keypad(stdscr, TRUE); // enable use of arrow keys/etc
+    start_color();
+    init_pair(1, COLOR_CYAN, COLOR_BLACK);
+    init_pair(2, COLOR_GREEN, COLOR_BLACK);
+    init_pair(2, COLOR_MAGENTA, COLOR_BLACK);
+
+    refresh(); // Make sure the screen is ready to print to
+}

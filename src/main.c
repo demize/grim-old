@@ -13,42 +13,11 @@
 //===----------------------------------------------------------------------===//
 
 #include "cursesutils.h"
+#include "grim_menus.h"
 
 #include <signal.h>
 #include <stdlib.h>
 #include <string.h>
-
-static void finish(int sig);
-
-static inline int max_from_five(int, int, int, int, int);
-
-static void init_curses();
-static void print_welcome();
-
-int main()
-{
-    signal(SIGINT, finish);
-
-    init_curses();
-    print_welcome();
-
-    finish(0);
-}
-
-/*
- * Set up ncurses
- */
-static void init_curses()
-{
-    initscr();
-    cbreak(); // disable input buffering
-    noecho(); // prevent characters typed from echoing unless we want them to
-    nonl();   // disable newline from enter key
-    intrflush(stdscr, FALSE);
-    keypad(stdscr, TRUE); // enable use of arrow keys/etc
-    start_color();
-    refresh(); // Make sure the screen is ready to print to
-}
 
 /*
  * Calculate the maximum of five numbers, used in the welcome message
@@ -121,8 +90,31 @@ static void print_welcome()
 /*
  * Tidy up before exit
  */
-static void finish(int sig)
+static void finish()
 {
     endwin();
     exit(0);
+}
+
+int main()
+{
+    signal(SIGINT, finish);
+
+    init_curses();
+    print_welcome();
+
+    WINDOW *main_win = create_window(LINES - 2, COLS - 2, 1, 1);
+    switch (do_main_menu(main_win)) {
+    case 0:
+        // Start imaging
+        break;
+    case 1:
+        // Start settings menu
+        break;
+    case 2:
+        // Exit
+        finish();
+    }
+
+    finish();
 }
