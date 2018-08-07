@@ -116,6 +116,14 @@ general format of the header is as follows:
 Keep the \file documentation comment brief; any additional documentation should
 be done at the function level.
 
+### Header Guards
+
+The LLVM coding standards mandate a header guard be used for each file. General
+convention regarding header guards recommends they be given a "namespace" in
+order to prevent fringe issues; as such, the format for an `#ifdef` header guard
+in this project shall be `#ifdef GRIM_NAME_H`, where NAME is the name of the
+file.
+
 ### Includes
 
 If your code depends on anything defined by meson during configuration, the very
