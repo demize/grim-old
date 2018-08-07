@@ -16,8 +16,9 @@ To build grim, you need the following installed:
 - ncursesw
 - cdk
 - pkg-config
+- meson (installed using pip, not your package manager)
 
-You also need ewf-tools.
+You also need ewf-tools for the program to run.
 
 The easiest way to get there on Ubuntu is `apt install build-essential pkg-config libncursesw5-dev libcdk5-dev ewf-tools`. For Void Linux (which has more experimental support), `xbps-install -S [gcc or clang] pkg-config ncursesw-devel` will install most of the required packages, however you will need to build and install libewf and cdk yourself. Once you have the requirements installed, you can build the project as such:
 
