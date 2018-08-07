@@ -27,7 +27,7 @@
 
 #if HAVE_THREADS == HAVE_THREADS_C11
 #    include <threads.h>
-#    define GRIM_CALLBACK thrd_start_t
+#    define GRIM_CALLBACK int
 typedef thrd_start_t grim_start_t;
 typedef thrd_t grim_thread_t;
 typedef mtx_t grim_mtx_t;
