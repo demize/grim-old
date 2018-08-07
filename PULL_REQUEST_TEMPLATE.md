@@ -8,3 +8,11 @@
 ### Description
 
 [Replace this text with the description of your pull request]
+
+### Benefits
+
+[Replace this text with an explanation of the benefits of merging your pull request]
+
+### Potential drawbacks
+
+[Replace this text with the potential drawbacks of the changes you made]
