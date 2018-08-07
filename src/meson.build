@@ -20,7 +20,7 @@ if cc.has_header('ncursesw/curses.h', dependencies: cursesdep)
 elif cc.has_header('ncursesw.h', dependencies: cursesdep)
     config.set('HAVE_NCURSESW_H', true)
 elif cc.has_header('curses.h', dependencies: cursesdep)
-    config.set('HAVE_CURSES_H, true)
+    config.set('HAVE_CURSES_H', true)
 else
     error('ncursesw found, but no header found')
 endif
