@@ -46,10 +46,7 @@ void init_curses()
     nonl();   // disable newline from enter key
     intrflush(stdscr, FALSE);
     keypad(stdscr, TRUE); // enable use of arrow keys/etc
-    start_color();
-    init_pair(1, COLOR_CYAN, COLOR_BLACK);
-    init_pair(2, COLOR_GREEN, COLOR_BLACK);
-    init_pair(2, COLOR_MAGENTA, COLOR_BLACK);
+    initCDKColor();
 
     refresh(); // Make sure the screen is ready to print to
 }

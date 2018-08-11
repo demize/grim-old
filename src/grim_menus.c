@@ -75,9 +75,9 @@ static void print_menu_title(WINDOW *win, const char *title)
     int length = strlen(title);
     int width = getmaxx(win);
     int x = (width - length) / 2;
-    wattron(win, COLOR_PAIR(1));
+    wattron(win, COLOR_PAIR(56));
     mvwprintw(win, 0, x, "%s", title);
-    wattroff(win, COLOR_PAIR(1));
+    wattroff(win, COLOR_PAIR(56));
 }
 
 int do_main_menu(WINDOW *win)
@@ -95,6 +95,10 @@ int do_main_menu(WINDOW *win)
     box(win, 0, 0);
     print_menu_title(win, "grim Menu");
     refresh();
+
+    set_menu_fore(menu, COLOR_PAIR(63));
+    set_menu_back(menu, COLOR_PAIR(0));
+    set_menu_grey(menu, COLOR_PAIR(48));
 
     post_menu(menu);
     wrefresh(win);
