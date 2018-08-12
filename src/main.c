@@ -12,6 +12,7 @@
 //!
 //===----------------------------------------------------------------------===//
 
+#include "grim_forms.h"
 #include "grim_menus.h"
 #include "windowutils.h"
 
@@ -20,71 +21,36 @@
 #include <string.h>
 
 /*
- * Calculate the maximum of five numbers, used in the welcome message
- */
-static inline int max_from_five(int a, int b, int c, int d, int e)
-{
-    int max = a;
-    if (b > max)
-        max = b;
-    if (c > max)
-        max = c;
-    if (d > max)
-        max = d;
-    if (e > max)
-        max = e;
-    return max;
-}
-
-/*
- * Print a string padded to fit in the center of width
- */
-static void print_padded(WINDOW *win, const char *str, int width)
-{
-    int padding = (width - strlen(str)) / 2;
-    for (int i = 0; i < padding; i++)
-        wprintw(win, " ");
-    wprintw(win, str);
-    wprintw(win, "\n");
-    wrefresh(win);
-}
-
-/*
  * Print the welcome message
  */
 static void print_welcome()
 {
-    curs_set(0); // Remove the cursor for the welcome screen
     const char *line1 = "grim " PACKAGE_VERSION;
     const char *line2 = "Visit our Github at github.com/demize/grim.";
     const char *line3 = "Comments can be addressed to demize@unstable.systems.";
-    const char *line4 = "";
-    const char *line5 = "Press any key to continue.";
-    int width = max_from_five(strlen(line1), strlen(line2), strlen(line3),
-                              strlen(line4), strlen(line5))
-                + 4;
+    const char *continueText = "Continue";
+    int width = max_from_three(strlen(line1), strlen(line2), strlen(line3)) + 4;
     width += width % 2; // Make sure the width is even
     int height = 5;
 
-    int starty = (LINES - height) / 2;
-    int startx = (COLS - width) / 2;
+    createWindowCenter(height, width, line1);
 
-    WINDOW *text_win = createWindow(height, width, starty, startx);
-    WINDOW *border_win
-        = createWindowBorder(height + 2, width + 2, starty - 1, startx - 1);
+    newtComponent form, label1, label2, continueButton;
 
-    wattron(text_win, A_BOLD); // Make the version text bold
-    print_padded(text_win, line1, width);
-    wattroff(text_win, A_BOLD); // Make the rest of the text not
-    print_padded(text_win, line2, width);
-    print_padded(text_win, line3, width);
-    print_padded(text_win, line4, width);
-    print_padded(text_win, line5, width);
+    int label1left = (width - strlen(line2)) / 2;
+    int label2left = (width - strlen(line3)) / 2;
+    label1 = newtLabel(label1left, 1, line2);
+    label2 = newtLabel(label2left, 2, line3);
+    int startx = ((width - strlen(continueText)) / 2) - 2;
+    continueButton = newtCompactButton(startx, 4, continueText);
 
-    getch(); // Wait for a key to be pressed
-    destroyWindow(text_win);
-    destroyWindow(border_win);
-    curs_set(1); // Return the cursor for the rest of the program
+    form = newtForm(NULL, NULL, 0);
+    newtFormAddComponents(form, label1, label2, continueButton, NULL);
+
+    newtRunForm(form);
+
+    newtFormDestroy(form);
+    newtPopWindow();
 }
 
 /*
@@ -92,21 +58,21 @@ static void print_welcome()
  */
 static void finish()
 {
-    endwin();
+    newtFinished();
     exit(0);
 }
 
 int main()
 {
     signal(SIGINT, finish);
+    signal(SIGSEGV, finish);
 
-    initCurses();
+    initNewt();
     print_welcome();
 
-    WINDOW *main_win = createWindow(LINES - 2, COLS - 2, 1, 1);
-    switch (showMainMenu(main_win)) {
+    switch (showMainMenu()) {
     case 0:
-        // Start imaging
+        showRequiredForm();
         break;
     case 1:
         // Start settings menu

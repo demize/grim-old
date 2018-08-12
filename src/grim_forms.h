@@ -17,6 +17,8 @@
 
 #include "windowutils.h"
 
+#include <newt.h>
+
 //! Defines acceptable values for num_sectors.
 typedef enum
 {
@@ -94,6 +96,6 @@ typedef struct
 //! \param win The window to display the form in. Should be empty.
 //!
 //! \return An instance of `grim_ewfargs`.
-grim_ewfargs showRequiredForm(WINDOW *win);
+grim_ewfargs showRequiredForm();
 
 #endif

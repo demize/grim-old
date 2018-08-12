@@ -15,14 +15,6 @@
 #ifndef GRIM_MENUS_H
 #define GRIM_MENUS_H
 
-#ifdef HAVE_CONFIG_H
-#    include "config.h"
-#else
-#    error config.h not found, please run meson
-#endif
-
-#include "windowutils.h"
-
 //! \brief Displays and handles the main menu.
 //!
 //! Displays a menu with options for "Image", "Settings", and "Exit", and
@@ -34,6 +26,6 @@
 //!
 //! \return An `int` representing the option the user selected.
 //! \param win The window to print the menu in.
-int showMainMenu(WINDOW *win);
+int showMainMenu();
 
 #endif

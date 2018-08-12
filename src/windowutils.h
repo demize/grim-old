@@ -21,57 +21,39 @@
 #    error config.h not found, please run meson
 #endif
 
-#if defined HAVE_NCURSESW_CURSES_H
-#    include <ncursesw/curses.h>
-#elif defined HAVE_NCURSESW_H
-#    include <ncursesw.h>
-#elif defined HAVE_CURSES_H
-#    include <curses.h>
-#else
-#    error "ncursesw required"
-#endif
+#include <newt.h>
 
-#if defined HAVE_NCURSESW_PANEL_H
-#    include <ncursesw/panel.h>
-#elif defined HAVE_NCURSES_PANEL_H
-#    include <ncurses/panel.h>
-#elif defined HAVE_PANEL_H
-#    include <panel.h>
-#else
-#    error "SysV-compatible Curses Panel header file required"
-#endif
+//! Creates a window with the specified dimensions.
+//!
+//! \param height The height of the window to draw.
+//!
+//! \param width The width of the window to draw.
+//!
+//! \param top The y-position to start drawing the window at.
+//!
+//! \param left The x-position to start drawing the window at.
+//!
+//! \param title The title of the window.
+void createWindow(int height, int width, int top, int left, const char *title);
 
-#if defined HAVE_NCURSESW_MENU_H
-#    include <ncursesw/menu.h>
-#elif defined HAVE_NCURSES_MENU_H
-#    include <ncurses/menu.h>
-#elif defined HAVE_MENU_H
-#    include <menu.h>
-#else
-#    error "SysV-compatible Curses Menu header file required"
-#endif
+//! Creates a centered window with the specified dimensions.
+//!
+//! \param height The height of the window to draw.
+//!
+//! \param width The width of the window to draw.
+//!
+//! \param title The title of the window.
+void createWindowCenter(int height, int width, const char *title);
 
-#if defined HAVE_NCURSESW_FORM_H
-#    include <ncursesw/form.h>
-#elif defined HAVE_NCURSES_FORM_H
-#    include <ncurses/form.h>
-#elif defined HAVE_FORM_H
-#    include <form.h>
-#else
-#    error "SysV-compatible Curses Form header file required"
-#endif
+//! Destroys the last window created.
+void destroyWindow();
 
-#if defined HAVE_CDK_H
-#    include <cdk.h>
-#elif defined HAVE_CDK_CDK_H
-#    include <cdk/cdk.h>
-#else
-#    error "libcdk required"
-#endif
+//! Initializes newt.
+void initNewt();
 
-WINDOW *createWindow(int height, int width, int starty, int startx);
-WINDOW *createWindowBorder(int height, int width, int starty, int startx);
-void destroyWindow(WINDOW *win);
-void initCurses();
+/*
+ * Calculate the maximum of five numbers, used in the welcome message
+ */
+int max_from_three(int a, int b, int c);
 
 #endif
