@@ -21,7 +21,7 @@
 #    error config.h not found, please run meson
 #endif
 
-#include "cursesutils.h"
+#include "windowutils.h"
 
 //! \brief Displays and handles the main menu.
 //!

@@ -1,4 +1,4 @@
-//===---       cursesutils.c - Functions for working with ncurses       ---===//
+//===---       windowutils.c - Functions for working with windows       ---===//
 //
 //                                grim Project
 //
@@ -8,7 +8,7 @@
 //!
 //! \file
 //! This file contains the declarations for functions useful for working with
-//! ncurses. These functions may be used by multiple different parts of grim.
+//! windows. These functions may be used by multiple different parts of grim.
 //!
 //===----------------------------------------------------------------------===//
 

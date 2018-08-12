@@ -12,8 +12,8 @@
 //!
 //===----------------------------------------------------------------------===//
 
-#include "cursesutils.h"
 #include "grim_menus.h"
+#include "windowutils.h"
 
 #include <signal.h>
 #include <stdlib.h>

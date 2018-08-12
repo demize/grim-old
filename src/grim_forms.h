@@ -15,7 +15,7 @@
 #ifndef GRIM_FORMS_H
 #define GRIM_FORMS_H
 
-#include "cursesutils.h"
+#include "windowutils.h"
 
 //! Defines acceptable values for num_sectors.
 typedef enum

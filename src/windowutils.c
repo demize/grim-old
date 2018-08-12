@@ -1,4 +1,4 @@
-//===---       cursesutils.h - Functions for working with ncurses       ---===//
+//===---       windowutils.c - Functions for working with windows       ---===//
 //
 //                                grim Project
 //
@@ -8,11 +8,11 @@
 //!
 //! \file
 //! This file contains the implementations of functions useful for working with
-//! ncurses. These functions may be used by multiple different parts of grim.
+//! windows. These functions may be used by multiple different parts of grim.
 //!
 //===----------------------------------------------------------------------===//
 
-#include "cursesutils.h"
+#include "windowutils.h"
 
 WINDOW *createWindow(int height, int width, int starty, int startx)
 {
