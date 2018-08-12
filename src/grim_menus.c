@@ -80,7 +80,7 @@ static void print_menu_title(WINDOW *win, const char *title)
     wattroff(win, COLOR_PAIR(56));
 }
 
-int do_main_menu(WINDOW *win)
+int showMainMenu(WINDOW *win)
 {
     keypad(win, true);
     ITEM **menu_items;

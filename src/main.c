@@ -69,9 +69,9 @@ static void print_welcome()
     int starty = (LINES - height) / 2;
     int startx = (COLS - width) / 2;
 
-    WINDOW *text_win = create_window(height, width, starty, startx);
+    WINDOW *text_win = createWindow(height, width, starty, startx);
     WINDOW *border_win
-        = create_window_border(height + 2, width + 2, starty - 1, startx - 1);
+        = createWindowBorder(height + 2, width + 2, starty - 1, startx - 1);
 
     wattron(text_win, A_BOLD); // Make the version text bold
     print_padded(text_win, line1, width);
@@ -82,8 +82,8 @@ static void print_welcome()
     print_padded(text_win, line5, width);
 
     getch(); // Wait for a key to be pressed
-    destroy_window(text_win);
-    destroy_window(border_win);
+    destroyWindow(text_win);
+    destroyWindow(border_win);
     curs_set(1); // Return the cursor for the rest of the program
 }
 
@@ -100,11 +100,11 @@ int main()
 {
     signal(SIGINT, finish);
 
-    init_curses();
+    initCurses();
     print_welcome();
 
-    WINDOW *main_win = create_window(LINES - 2, COLS - 2, 1, 1);
-    switch (do_main_menu(main_win)) {
+    WINDOW *main_win = createWindow(LINES - 2, COLS - 2, 1, 1);
+    switch (showMainMenu(main_win)) {
     case 0:
         // Start imaging
         break;

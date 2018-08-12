@@ -34,6 +34,6 @@
 //!
 //! \return An `int` representing the option the user selected.
 //! \param win The window to print the menu in.
-int do_main_menu(WINDOW *win);
+int showMainMenu(WINDOW *win);
 
 #endif

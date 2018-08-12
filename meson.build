@@ -104,7 +104,7 @@ else
 endif
 
 configure_file(
-    input: 'config.h.in',
+    input: 'src/config.h.in',
     output: 'config.h',
     configuration: config
 )
@@ -113,16 +113,17 @@ add_global_arguments('-DHAVE_CONFIG_H',
     language: 'c')
 
 executable('grim',
-    'main.c',
-    'cursesutils.c',
-    'threadutils.c',
-    'grim_menus.c',
+    'src/main.c',
+    'src/cursesutils.c',
+    'src/threadutils.c',
+    'src/grim_menus.c',
+    'src/grim_forms.c',
     dependencies: [paneldep, menudep, formdep, cursesdep, cdkdep, threads_dep]
 )
 
 thread_test = executable('thread_test',
-    'thread_test.c',
-    'threadutils.c',
+    'src/thread_test.c',
+    'src/threadutils.c',
     dependencies: [threads_dep]
 )
 

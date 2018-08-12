@@ -69,9 +69,9 @@
 #    error "libcdk required"
 #endif
 
-WINDOW *create_window(int height, int width, int starty, int startx);
-WINDOW *create_window_border(int height, int width, int starty, int startx);
-void destroy_window(WINDOW *win);
-void init_curses();
+WINDOW *createWindow(int height, int width, int starty, int startx);
+WINDOW *createWindowBorder(int height, int width, int starty, int startx);
+void destroyWindow(WINDOW *win);
+void initCurses();
 
 #endif

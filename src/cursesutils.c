@@ -14,7 +14,7 @@
 
 #include "cursesutils.h"
 
-WINDOW *create_window(int height, int width, int starty, int startx)
+WINDOW *createWindow(int height, int width, int starty, int startx)
 {
     WINDOW *win = newwin(height, width, starty, startx);
     wrefresh(win);
@@ -22,7 +22,7 @@ WINDOW *create_window(int height, int width, int starty, int startx)
     return win;
 }
 
-WINDOW *create_window_border(int height, int width, int starty, int startx)
+WINDOW *createWindowBorder(int height, int width, int starty, int startx)
 {
     WINDOW *win = newwin(height, width, starty, startx);
     box(win, 0, 0);
@@ -31,14 +31,14 @@ WINDOW *create_window_border(int height, int width, int starty, int startx)
     return win;
 }
 
-void destroy_window(WINDOW *win)
+void destroyWindow(WINDOW *win)
 {
     wborder(win, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
     wrefresh(win);
     delwin(win);
 }
 
-void init_curses()
+void initCurses()
 {
     initscr();
     cbreak(); // disable input buffering
