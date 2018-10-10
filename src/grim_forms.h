@@ -15,87 +15,46 @@
 #ifndef GRIM_FORMS_H
 #define GRIM_FORMS_H
 
+#include "grim_ewfutils.h"
 #include "windowutils.h"
 
 #include <newt.h>
 
-//! Defines acceptable values for num_sectors.
+//! Defines possible return values for forms: either the user selected to go to
+//! the previous page, the next page, or exit.
 typedef enum
 {
-    SECTORS_16,
-    SECTORS_32,
-    SECTORS_64,
-    SECTORS_128,
-    SECTORS_256,
-    SECTORS_512,
-    SECTORS_1024,
-    SECTORS_2048,
-    SECTORS_4096,
-    SECTORS_8192,
-    SECTORS_16384,
-    SECTORS_32768
-} grim_num_sectors;
+    form_prev,
+    form_next,
+    form_exit
+} form_return;
 
-//! Defines acceptable values for compression_type.
-typedef enum
-{
-    COMPRESSION_NONE,
-    COMPRESSION_EMPTY_BLOCK,
-    COMPRESSION_FAST,
-    COMPRESSION_BEST
-} grim_compression;
-
-//! Defines acceptable values for digest_type.
-typedef enum
-{
-    DIGEST_SHA1 = (1 << 0),
-    DIEGST_SHA256 = (1 << 1)
-} grim_digest_type;
-
-//! Defines acceptable values for ewf_format.
-typedef enum
-{
-    FORMAT_FTK,
-    FORMAT_ENCASE2,
-    FORMAT_ENCASE3,
-    FORMAT_ENCASE4,
-    FORMAT_ENCASE5,
-    FORMAT_ENCASE6,
-    FORMAT_ENCASE7,
-    FORMAT_LINEN5,
-    FORMAT_LINEN6,
-    FORMAT_LINEN7,
-    FORMAT_EWFX
-} grim_ewf_format;
-
-//! Holds all the user-provided information we collect so that it can be passed
-//! to another function to begin imaging.
-typedef struct
-{
-    const char source_device[256];
-    grim_num_sectors num_sectors;
-    grim_compression compression_type;
-    const char case_number[256];
-    grim_digest_type digest_type;
-    const char description[1024];
-    const char examiner_name[256];
-    const char evidence_number[256];
-    grim_ewf_format ewf_format;
-    const char notes[1024];
-    const char segment_file_size[256];
-    const char target[256];
-    const char secondary_target[256];
-} grim_ewfargs;
-
-//! \brief Display the form for required information and return the user's
-//! input.
+//! \brief Collect information about the case and the examiner.
 //!
-//! Takes in an ncurses WINDOW to display the form in and returns an instance of
-//! `grim_ewfargs` containing the user's input.
+//! Displays the form asking for information about the examiner and the case.
+//! Stores the user's answers in the provided `grim_ewfargs` structure. Uses the
+//! values already present in that structure as the defaults, if present. The
+//! structure must be initialized with `init_ewfargs()` prior to this function
+//! being called.
 //!
-//! \param win The window to display the form in. Should be empty.
+//! \param [in,out] args The structure containing the arguments to pass
+//! to ewfacquirestream.
 //!
-//! \return An instance of `grim_ewfargs`.
-grim_ewfargs showRequiredForm();
+//! \return A `form_return` value saying which button the user selected.
+form_return showExaminerInfoForm(grim_ewfargs *args);
+
+//! \brief Collect the information that's required to image a drive.
+//!
+//! Displays the forms asking for basic information relating to the image and
+//! stores the user's answers in the provided `grim_ewfargs` structure. Uses the
+//! values already present in that structure as the defaults, if present. The
+//! structure must be initialized with `init_ewfargs()` prior to this function
+//! being called.
+//!
+//! \param [in,out] args The structure containing the arguments to pass
+//! to ewfacquirestream.
+//!
+//! \return A `form_return` value saying which button the user selected.
+form_return showRequiredForm(grim_ewfargs *args);
 
 #endif

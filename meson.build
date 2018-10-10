@@ -34,6 +34,13 @@ configure_file(
     configuration: config
 )
 
+pedanticval = get_option('pedantic')
+if pedanticval
+    add_global_arguments('-Weverything',
+        language: 'c')
+    add_global_arguments('-pedantic',
+            language: 'c')
+endif
 add_global_arguments('-DHAVE_CONFIG_H',
     language: 'c')
 
@@ -43,6 +50,7 @@ executable('grim',
     'src/threadutils.c',
     'src/grim_menus.c',
     'src/grim_forms.c',
+    'src/grim_ewfutils.c',
     dependencies: [newtdep, threads_dep]
 )
 

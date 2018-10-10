@@ -17,7 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-GRIM_CALLBACK thread_func(void *args)
+static GRIM_CALLBACK thread_func(void *args)
 {
     grim_thread_args *casted = (grim_thread_args *)args;
     for (int i = 0; i < 10; ++i) {

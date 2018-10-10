@@ -14,13 +14,16 @@
 
 #include "windowutils.h"
 
-void createWindow(int height, int width, int starty, int startx,
+#include <stdarg.h>
+
+void createWindow(unsigned int height, unsigned int width, int top, int left,
                   const char *title)
 {
-    newtOpenWindow(startx, starty, width, height, title);
+    newtOpenWindow(left, top, width, height, title);
 }
 
-void createWindowCenter(int height, int width, const char *title)
+void createWindowCenter(unsigned int height, unsigned int width,
+                        const char *title)
 {
     newtCenteredWindow(width, height, title);
 }
@@ -36,12 +39,18 @@ void initNewt()
     newtCls();
 }
 
-int max_from_three(int a, int b, int c)
+unsigned int max_from_n(unsigned int numargs, ...)
 {
-    int max = a;
-    if (b > max)
-        max = b;
-    if (c > max)
-        max = c;
+    unsigned int max = 0;
+
+    va_list argp;
+    va_start(argp, numargs);
+    for (unsigned int i = numargs; i > 0; --i) {
+        unsigned int current = va_arg(argp, unsigned int);
+        if (current > max) {
+            max = current;
+        }
+    }
+
     return max;
 }

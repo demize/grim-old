@@ -34,7 +34,8 @@
 //! \param left The x-position to start drawing the window at.
 //!
 //! \param title The title of the window.
-void createWindow(int height, int width, int top, int left, const char *title);
+void createWindow(unsigned int height, unsigned int width, int top, int left,
+                  const char *title);
 
 //! Creates a centered window with the specified dimensions.
 //!
@@ -43,17 +44,26 @@ void createWindow(int height, int width, int top, int left, const char *title);
 //! \param width The width of the window to draw.
 //!
 //! \param title The title of the window.
-void createWindowCenter(int height, int width, const char *title);
+void createWindowCenter(unsigned int height, unsigned int width,
+                        const char *title);
 
 //! Destroys the last window created.
-void destroyWindow();
+void destroyWindow(void);
 
 //! Initializes newt.
-void initNewt();
+void initNewt(void);
+
+//! Calculate the maximum of a list of numbers.
+//!
+//! \param numargs The number of arguments provided to the function.
+//!
+//! \param ... The numbers (as unsigned int) to find the maximum of.
+unsigned int max_from_n(unsigned int numargs, ...);
 
 /*
- * Calculate the maximum of five numbers, used in the welcome message
+ * Use newt's wstrlen function for calculating string length
  */
-int max_from_three(int a, int b, int c);
+extern int _newt_wstrlen(const char *, int);
+#define wstrlen(str) _newt_wstrlen((str), -1)
 
 #endif

@@ -24,9 +24,10 @@ static const char *main_choices[]
 
 int showMainMenu()
 {
-    int width = max_from_three(strlen(main_choices[0]), strlen(main_choices[1]),
-                               strlen(main_choices[2]))
-                + 4;
+    unsigned int width
+        = max_from_n(3, strlen(main_choices[0]), strlen(main_choices[1]),
+                     strlen(main_choices[2]))
+          + 4;
     width += (width % 2);
 
     createWindowCenter(5, width, "grim");
@@ -40,21 +41,10 @@ int showMainMenu()
     newtFormAddComponents(form, menubox, NULL);
     newtRunForm(form);
 
-    int choice = -1;
-    switch ((size_t)newtListboxGetCurrent(menubox)) {
-    case 0:
-        choice = 0;
-        break;
-    case 1:
-        choice = 1;
-        break;
-    case 2:
-        choice = 2;
-        break;
-    }
+    int *choice = (int *)newtListboxGetCurrent(menubox);
 
     newtFormDestroy(form);
     newtPopWindow();
 
-    return choice;
+    return (int)choice;
 }

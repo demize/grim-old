@@ -1,0 +1,4 @@
+option('pedantic',
+    type: 'boolean',
+    value: 'false',
+    description: 'Use -pedantic and -Weverything')

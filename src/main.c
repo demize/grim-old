@@ -12,6 +12,7 @@
 //!
 //===----------------------------------------------------------------------===//
 
+#include "grim_ewfutils.h"
 #include "grim_forms.h"
 #include "grim_menus.h"
 #include "windowutils.h"
@@ -29,9 +30,10 @@ static void print_welcome()
     const char *line2 = "Visit our Github at github.com/demize/grim.";
     const char *line3 = "Comments can be addressed to demize@unstable.systems.";
     const char *continueText = "Continue";
-    int width = max_from_three(strlen(line1), strlen(line2), strlen(line3)) + 4;
+    unsigned int width
+        = max_from_n(3, strlen(line1), strlen(line2), strlen(line3)) + 4;
     width += width % 2; // Make sure the width is even
-    int height = 5;
+    unsigned int height = 5;
 
     createWindowCenter(height, width, line1);
 
@@ -41,8 +43,8 @@ static void print_welcome()
     int label2left = (width - strlen(line3)) / 2;
     label1 = newtLabel(label1left, 1, line2);
     label2 = newtLabel(label2left, 2, line3);
-    int startx = ((width - strlen(continueText)) / 2) - 2;
-    continueButton = newtCompactButton(startx, 4, continueText);
+    int left = ((width - strlen(continueText)) / 2) - 2;
+    continueButton = newtCompactButton(left, 4, continueText);
 
     form = newtForm(NULL, NULL, 0);
     newtFormAddComponents(form, label1, label2, continueButton, NULL);
@@ -56,10 +58,28 @@ static void print_welcome()
 /*
  * Tidy up before exit
  */
-static void finish()
+__attribute__((__noreturn__)) static void finish()
 {
     newtFinished();
     exit(0);
+}
+
+//! \brief Show the forms for imaging a hard drive.
+//!
+//! \param [out] args The arguments provided by the user. Must be initialized
+//! with `init_ewfargs()` before this funciton is called.
+//!
+//! \return 0 if the user filled out all the forms, or 1 otherwise.
+int showForms(grim_ewfargs *args)
+{
+    int result;
+    result = showExaminerInfoForm(args);
+    if(result == form_exit)
+    {
+        finish();
+    }
+    showRequiredForm(args);
+    return 1;
 }
 
 int main()
@@ -71,9 +91,13 @@ int main()
     print_welcome();
 
     switch (showMainMenu()) {
-    case 0:
-        showRequiredForm();
+    case 0: {
+        grim_ewfargs args;
+        init_ewfargs(&args);
+        showForms(&args);
+        free_ewfargs(&args);
         break;
+    }
     case 1:
         // Start settings menu
         break;

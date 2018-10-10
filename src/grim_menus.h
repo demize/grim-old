@@ -25,7 +25,6 @@
 //! - 2 for Exit
 //!
 //! \return An `int` representing the option the user selected.
-//! \param win The window to print the menu in.
-int showMainMenu();
+int showMainMenu(void);
 
 #endif
