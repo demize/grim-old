@@ -147,14 +147,33 @@ form_return showRequiredForm(grim_ewfargs *args)
     // Create the label for the listbox
     newtComponent num_sectors_label = newtLabel(0, 2, "Bytes per sector:");
 
+    // Build the buttons
+    newtComponent next_button = newtCompactButton(16, 17, "Next");
+    newtComponent back_button = newtCompactButton(34, 17, "Back");
+    newtComponent exit_button = newtCompactButton(52, 17, "Exit");
+
     // Add everything to the form and display the form
     newtComponent page_one = newtForm(NULL, NULL, 0);
-    newtFormAddComponents(page_one, num_sectors_list, num_sectors_label, NULL);
+    newtFormAddComponents(page_one, num_sectors_list, num_sectors_label,
+                          next_button, back_button, exit_button, NULL);
 
     createWindowCenter(20, 76, "Required Information");
-    newtRunForm(page_one);
+    newtComponent pressedButton = newtRunForm(page_one);
 
     // actually use the input...
+
+    if(pressedButton == exit_button)
+    {
+        newtFormDestroy(page_one);
+        newtPopWindow();
+        return form_exit;
+    }
+    else if(pressedButton == back_button)
+    {
+        newtFormDestroy(page_one);
+        newtPopWindow();
+        return form_prev;
+    }
 
     newtFormDestroy(page_one);
     newtPopWindow();

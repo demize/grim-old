@@ -72,13 +72,26 @@ __attribute__((__noreturn__)) static void finish()
 //! \return 0 if the user filled out all the forms, or 1 otherwise.
 int showForms(grim_ewfargs *args)
 {
+    int currentPage = 0;
     int result;
-    result = showExaminerInfoForm(args);
-    if(result == form_exit)
+    do
     {
-        finish();
-    }
-    showRequiredForm(args);
+        switch(currentPage) {
+        case 0:
+            result = showExaminerInfoForm(args);
+            break;
+        case 1:
+            result = showRequiredForm(args);
+            break;
+        default:
+            // for now, since no other pages exist, just exit
+            finish();
+        }
+        if(result == form_next)
+            ++currentPage;
+        else if(result == form_prev)
+            --currentPage;
+    } while(result != form_exit);
     return 1;
 }
 
