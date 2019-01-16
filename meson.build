@@ -15,13 +15,38 @@ newtdep = dependency(
 )
 
 threads_dep = declare_dependency()
-if cc.check_header('threads.h')
-    config.set('HAVE_THREADS', 'HAVE_THREADS_C11')
-else
-    threads_dep = dependency('threads', required: false)
-    if cc.check_header('threads.h', dependencies: threads_dep)
+if cc.has_header('threads.h')
+    if(cc.links('''
+        #include <threads.h>
+
+        int main(int argc, char **argv)
+        {
+            thrd_t test_thread = NULL;
+            thrd_detach(test_thread);
+            return 0;
+        }
+    '''))
         config.set('HAVE_THREADS', 'HAVE_THREADS_C11')
-    elif threads_dep.found()
+    else
+        threads_dep = dependency('threads', required: false)
+        if(cc.links('''
+            #include <threads.h>
+
+            int main(int argc, char **argv)
+            {
+                thrd_t test_thread = NULL;
+                thrd_detach(test_thread);
+                return 0;
+            }
+        '''))
+            config.set('HAVE_THREADS', 'HAVE_THREADS_C11')
+        endif
+    endif
+endif
+
+if not config.has('HAVE_THREADS')
+    threads_dep = dependency('threads', required: false)
+    if threads_dep.found()
         config.set('HAVE_THREADS', 'HAVE_THREADS_PTHREADS')
     else
         error('No thread support found; must have pthreads or C11 threads')
